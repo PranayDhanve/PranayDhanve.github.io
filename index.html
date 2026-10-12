@@ -1,14 +1,591 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#080d18" />
-    <meta name="description" content="Pranay Dhanve — Cybersecurity portfolio covering security operations, vulnerability management, threat investigation, and penetration testing." />
-    <title>Pranay Dhanve | Cybersecurity Portfolio</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
-  </body>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0b1020">
+  <meta name="description" content="Pranay Dhanve's cybersecurity portfolio: information security, security operations, vulnerability management and security testing.">
+  <title>Pranay Dhanve | Cybersecurity Portfolio</title>
+
+  <style>
+    :root {
+      --bg: #0b1020;
+      --panel: #111a2d;
+      --border: #26344b;
+      --text: #edf2fa;
+      --muted: #a4b1c5;
+      --accent: #5eead4;
+      --blue: #93c5fd;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: Arial, Helvetica, sans-serif;
+      line-height: 1.7;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    .container {
+      width: min(1060px, 90%);
+      margin: auto;
+    }
+
+    header {
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: rgba(11,16,32,.95);
+      backdrop-filter: blur(12px);
+    }
+
+    nav {
+      min-height: 70px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .logo {
+      font-size: 20px;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .logo span { color: var(--accent); }
+
+    .nav-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 22px;
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .nav-links a:hover, .text-link:hover { color: var(--accent); }
+
+    .hero {
+      padding: 105px 0 85px;
+      display: grid;
+      grid-template-columns: 1.4fr .6fr;
+      align-items: center;
+      gap: 40px;
+    }
+
+    .eyebrow {
+      color: var(--accent);
+      text-transform: uppercase;
+      font-size: 12px;
+      font-weight: bold;
+      letter-spacing: 2px;
+    }
+
+    h1 {
+      font-size: clamp(38px, 6vw, 65px);
+      line-height: 1.12;
+      letter-spacing: -2px;
+      margin: 18px 0;
+    }
+
+    h1 span, h2 span { color: var(--accent); }
+
+    .hero p {
+      color: var(--muted);
+      max-width: 620px;
+      font-size: 16px;
+    }
+
+    .actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 28px;
+    }
+
+    .button {
+      display: inline-block;
+      padding: 11px 17px;
+      border-radius: 7px;
+      font-size: 13px;
+      font-weight: bold;
+      border: 1px solid var(--accent);
+      background: var(--accent);
+      color: #071c1b;
+    }
+
+    .button.secondary {
+      background: transparent;
+      color: var(--text);
+      border-color: var(--border);
+    }
+
+    .button:hover { opacity: .85; }
+
+    .hero-card {
+      padding: 25px;
+      border: 1px solid var(--border);
+      background: linear-gradient(145deg, #15243a, #101727);
+      border-radius: 15px;
+    }
+
+    .shield {
+      font-size: 55px;
+      color: var(--accent);
+      text-align: center;
+      margin-bottom: 10px;
+    }
+
+    .hero-card h3 { text-align: center; }
+
+    .hero-card p {
+      font-size: 13px;
+      text-align: center;
+    }
+
+    .status {
+      display: inline-block;
+      border: 1px solid #28574f;
+      background: #12352f;
+      color: var(--accent);
+      padding: 5px 10px;
+      border-radius: 20px;
+      font-size: 11px;
+    }
+
+    section { padding: 65px 0; }
+
+    .section-label {
+      color: var(--accent);
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      font-weight: bold;
+    }
+
+    h2 {
+      font-size: clamp(28px, 4vw, 39px);
+      line-height: 1.2;
+      margin: 12px 0 20px;
+      letter-spacing: -1px;
+    }
+
+    .section-intro {
+      color: var(--muted);
+      max-width: 700px;
+      margin-bottom: 30px;
+    }
+
+    .about-grid, .skills-grid, .projects-grid {
+      display: grid;
+      gap: 18px;
+    }
+
+    .about-grid { grid-template-columns: repeat(3, 1fr); }
+    .skills-grid { grid-template-columns: repeat(2, 1fr); }
+    .projects-grid { grid-template-columns: repeat(2, 1fr); }
+
+    .card {
+      padding: 23px;
+      border: 1px solid var(--border);
+      background: var(--panel);
+      border-radius: 11px;
+      min-width: 0;
+    }
+
+    .card h3 {
+      margin: 0 0 10px;
+      font-size: 17px;
+    }
+
+    .card p {
+      color: var(--muted);
+      font-size: 13px;
+      margin-bottom: 0;
+    }
+
+    .card-icon {
+      color: var(--accent);
+      font-size: 22px;
+      margin-bottom: 12px;
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+      margin-top: 17px;
+    }
+
+    .tag {
+      font-size: 11px;
+      color: #c8d6e8;
+      border: 1px solid #34445c;
+      background: #172338;
+      border-radius: 5px;
+      padding: 5px 8px;
+    }
+
+    .experience {
+      border-left: 2px solid #345a60;
+      padding-left: 24px;
+      margin: 30px 0;
+      position: relative;
+    }
+
+    .experience::before {
+      content: "";
+      width: 10px;
+      height: 10px;
+      background: var(--accent);
+      border-radius: 50%;
+      position: absolute;
+      left: -6px;
+      top: 7px;
+    }
+
+    .date {
+      color: var(--accent);
+      font-size: 11px;
+      letter-spacing: 1px;
+      font-weight: bold;
+    }
+
+    .company { color: var(--blue); font-size: 13px; }
+
+    ul.details {
+      color: var(--muted);
+      font-size: 13px;
+      padding-left: 20px;
+    }
+
+    ul.details li { margin: 9px 0; }
+
+    .cert {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .cert-icon { font-size: 36px; }
+
+    .contact {
+      text-align: center;
+      border: 1px solid var(--border);
+      border-radius: 15px;
+      padding: 45px 20px;
+      background: linear-gradient(140deg, #132337, #101626);
+    }
+
+    .contact p {
+      color: var(--muted);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .contact .actions { justify-content: center; }
+
+    footer {
+      padding: 25px 0;
+      margin-top: 45px;
+      border-top: 1px solid var(--border);
+      color: #8291a8;
+      font-size: 12px;
+      text-align: center;
+    }
+
+    .notice {
+      color: #aab9cc;
+      font-size: 12px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 13px;
+      margin-top: 20px;
+    }
+
+    @media (max-width: 760px) {
+      nav { align-items: flex-start; padding: 17px 0; flex-direction: column; }
+      .nav-links { gap: 13px; }
+      .hero { grid-template-columns: 1fr; padding: 65px 0; }
+      .hero-card { max-width: 400px; }
+      .about-grid { grid-template-columns: 1fr; }
+      .skills-grid, .projects-grid { grid-template-columns: 1fr; }
+      section { padding: 45px 0; }
+    }
+  </style>
+</head>
+
+<body>
+<header>
+  <nav class="container">
+    <a href="#home" class="logo">PD<span>.</span></a>
+    <div class="nav-links">
+      <a href="#about">About</a>
+      <a href="#skills">Skills</a>
+      <a href="#experience">Experience</a>
+      <a href="#projects">Projects</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </nav>
+</header>
+
+<main>
+  <div class="container">
+    <section class="hero" id="home">
+      <div>
+        <div class="eyebrow">Cybersecurity · Information Security</div>
+        <h1>Pranay Dhanve<br><span>Security Operations & Risk</span></h1>
+        <p>
+          Cybersecurity professional with experience supporting information
+          security operations, DLP investigations, vendor risk management,
+          security exception reviews, and email security analysis.
+          Interested in SOC Analyst and Information Security Analyst roles.
+        </p>
+        <div class="actions">
+          <a class="button" href="#projects">Explore Projects ↓</a>
+          <a class="button secondary" href="#contact">Contact Me</a>
+        </div>
+      </div>
+
+      <div class="hero-card">
+        <div class="shield">⬡</div>
+        <h3>Information Security</h3>
+        <p>Investigate thoughtfully. Assess risk. Document clearly.</p>
+        <p><span class="status">Open to relevant opportunities</span></p>
+      </div>
+    </section>
+
+    <section id="about">
+      <div class="section-label">01 / About</div>
+      <h2>Security work with a <span>practical mindset.</span></h2>
+      <p class="section-intro">
+        I support security processes that help teams assess risk, investigate
+        potential policy violations, and improve visibility into security controls.
+        My experience spans operational security tasks, third-party risk reviews,
+        email analysis, and compliance reporting.
+      </p>
+
+      <div class="about-grid">
+        <article class="card">
+          <div class="card-icon">⌕</div>
+          <h3>Investigate</h3>
+          <p>Review security alerts and policy violations, collect relevant context, and document findings.</p>
+        </article>
+        <article class="card">
+          <div class="card-icon">◈</div>
+          <h3>Assess Risk</h3>
+          <p>Support security exception reviews, vendor risk activities, and vulnerability management follow-ups.</p>
+        </article>
+        <article class="card">
+          <div class="card-icon">▤</div>
+          <h3>Communicate</h3>
+          <p>Produce clear documentation and practical follow-up recommendations for security stakeholders.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="skills">
+      <div class="section-label">02 / Skills</div>
+      <h2>Technical <span>toolkit.</span></h2>
+      <p class="section-intro">
+        Relevant technologies and security areas. Keep this list aligned with
+        tools you have actually used and can discuss in an interview.
+      </p>
+
+      <div class="skills-grid">
+        <article class="card">
+          <h3>Security Operations</h3>
+          <div class="tags">
+            <span class="tag">DLP Investigation</span>
+            <span class="tag">Email Security</span>
+            <span class="tag">Security Exceptions</span>
+            <span class="tag">Endpoint Compliance</span>
+            <span class="tag">RCSA Follow-ups</span>
+          </div>
+        </article>
+
+        <article class="card">
+          <h3>Security Tools</h3>
+          <div class="tags">
+            <span class="tag">Cisco IronPort</span>
+            <span class="tag">MXToolbox</span>
+            <span class="tag">Wazuh</span>
+            <span class="tag">Splunk</span>
+            <span class="tag">Wireshark</span>
+            <span class="tag">Tenable Nessus</span>
+          </div>
+        </article>
+
+        <article class="card">
+          <h3>Security Testing</h3>
+          <div class="tags">
+            <span class="tag">Burp Suite</span>
+            <span class="tag">Nmap</span>
+            <span class="tag">Metasploit</span>
+            <span class="tag">OWASP Top 10</span>
+            <span class="tag">Vulnerability Assessment</span>
+          </div>
+        </article>
+
+        <article class="card">
+          <h3>Technical Foundations</h3>
+          <div class="tags">
+            <span class="tag">Python</span>
+            <span class="tag">SQL</span>
+            <span class="tag">Linux</span>
+            <span class="tag">Networking</span>
+            <span class="tag">MITRE ATT&CK</span>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="experience">
+      <div class="section-label">03 / Experience</div>
+      <h2>Professional <span>experience.</span></h2>
+
+      <div class="experience">
+        <div class="date">JUNE 2025 — PRESENT</div>
+        <h3>Junior Information Security Analyst (Intern)</h3>
+        <div class="company">Onity Group Inc. · Pune, Hybrid</div>
+        <ul class="details">
+          <li>Support Risk and Control Self-Assessment (RCSA) follow-ups and review security exceptions involving server privileged access and vulnerability management.</li>
+          <li>Investigate Data Loss Prevention (DLP) policy violations and support follow-up on findings.</li>
+          <li>Support vendor risk management activities, including vendor onboarding, security posture review, and mitigation recommendations.</li>
+          <li>Analyze quarantined emails using Cisco IronPort and MXToolbox.</li>
+          <li>Run endpoint security compliance reports and support policy management activities.</li>
+        </ul>
+      </div>
+
+      <div class="experience">
+        <div class="date">AUGUST 2024 — MARCH 2025</div>
+        <h3>Security Intern</h3>
+        <div class="company">The Hacker Central</div>
+        <p class="section-intro">
+          Security internship experience. Add specific responsibilities,
+          tools, and outcomes you can substantiate before publishing.
+        </p>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-label">04 / Certification</div>
+      <div class="card cert">
+        <div class="cert-icon">♙</div>
+        <div>
+          <h3>Certified Professional Ethical Hacker (CPEH)</h3>
+          <p>Mile2 · Certification validity through October 2027</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="projects">
+      <div class="section-label">05 / Projects & Labs</div>
+      <h2>Practical security <span>work.</span></h2>
+      <p class="section-intro">
+        Use these sections to link actual lab reports, source code, screenshots,
+        or technical write-ups. Only describe work you have personally completed.
+      </p>
+
+      <div class="projects-grid">
+        <article class="card">
+          <h3>SIEM Alert Investigation Lab</h3>
+          <p>
+            Document an investigation from alert context to event review,
+            evidence collection, triage decision, and recommended response.
+          </p>
+          <div class="tags">
+            <span class="tag">Wazuh / SIEM</span>
+            <span class="tag">Log Analysis</span>
+            <span class="tag">Incident Triage</span>
+          </div>
+          <p><strong>Next step:</strong> Add your lab repository or sanitized investigation report.</p>
+        </article>
+
+        <article class="card">
+          <h3>Stored XSS Security Lab</h3>
+          <p>
+            A controlled web application security lab covering safe validation
+            of stored cross-site scripting, evidence capture, and remediation.
+          </p>
+          <div class="tags">
+            <span class="tag">Burp Suite</span>
+            <span class="tag">Stored XSS</span>
+            <span class="tag">OWASP</span>
+          </div>
+          <p><strong>Next step:</strong> Add screenshots and your technical write-up.</p>
+        </article>
+
+        <article class="card">
+          <h3>Vulnerability Assessment Workflow</h3>
+          <p>
+            A repeatable process for reviewing scan findings, validating
+            exposure, prioritizing risk, and documenting remediation steps.
+          </p>
+          <div class="tags">
+            <span class="tag">Nessus</span>
+            <span class="tag">Risk Prioritization</span>
+            <span class="tag">Remediation</span>
+          </div>
+          <p><strong>Next step:</strong> Add sanitized sample findings and remediation notes.</p>
+        </article>
+
+        <article class="card">
+          <h3>Cyber Threat Dashboard</h3>
+          <p>
+            A threat-intelligence dashboard project direction for organizing
+            indicators and presenting security signals in an analyst-friendly view.
+          </p>
+          <div class="tags">
+            <span class="tag">Threat Intelligence</span>
+            <span class="tag">Dashboard</span>
+            <span class="tag">Security Analysis</span>
+          </div>
+          <p><strong>Next step:</strong> Link the implementation or screenshots when ready.</p>
+        </article>
+      </div>
+
+      <div class="notice">
+        Security and confidentiality: do not publish employer data, real user
+        information, credentials, private incident details, or confidential reports.
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="contact">
+        <div class="section-label">06 / Contact</div>
+        <h2>Let's talk <span>cybersecurity.</span></h2>
+        <p>
+          Interested in SOC operations, information security, vulnerability
+          management, or security testing opportunities? Connect with me.
+        </p>
+        <div class="actions">
+          <!-- Replace the placeholders below with your real details. -->
+          <a class="button" href="mailto:pranayd.work@gmail.com">Email Me</a>
+          <a class="button secondary"
+             href="https://www.linkedin.com/in/pranaydhanve/"
+             target="_blank" rel="noopener noreferrer">LinkedIn ↗</a>
+          <a class="button secondary"
+             href="https://github.com/PranayDhanve"
+             target="_blank" rel="noopener noreferrer">GitHub ↗</a>
+          <a class="button secondary" href="/resume.pdf" target="_blank">Resume ↗</a>
+        </div>
+      </div>
+    </section>
+  </div>
+</main>
+
+<footer>
+  <div class="container">
+    © 2026 Pranay Dhanve · Cybersecurity Portfolio
+  </div>
+</footer>
+</body>
 </html>
