@@ -1,24 +1,37 @@
 import React from "react";
 import { createRoot } from "react-dom/client";
-import { Mail, Download, MapPin, ArrowUpRight, ShieldCheck } from "lucide-react";
+import { Mail, Download, MapPin, ArrowUpRight } from "lucide-react";
 
 /* ============ EDIT THIS SECTION ONLY ============ */
 const PROFILE = {
   name: "Pranay Dhanve",
   title: "Information Security Analyst",
   tagline:
-    "Information security analyst working across DLP investigations, vulnerability management and vendor risk, building toward VAPT and offensive security through projects, CTFs and bug bounty.",
+    "I work across DLP investigations, vulnerability management and vendor risk, and I'm building toward VAPT and offensive security through projects, CTFs and bug bounty.",
   location: "Pune, India",
   email: "pranayd.work@gmail.com",
   github: "https://github.com/PranayDhanve",
   linkedin: "https://www.linkedin.com/in/pranaydhanve/",
-  resume: "/Pranay_Dhanve_Resume_uni.pdf", // file must be in the public/ folder; set to "" to hide the button
+  resume: "/Pranay_Dhanve_Resume_uni.pdf", // file must be in public/; set to "" to hide the button
 };
+
+// Small terminal card in the hero. Facts only.
+const TERMINAL = [
+  ["whoami", "pranay.dhanve"],
+  ["role", "Junior InfoSec Analyst @ Onity Group"],
+  ["focus", "DLP · vuln mgmt · VAPT"],
+  ["status", "open to VAPT / AppSec / SOC roles"],
+];
 
 const HIGHLIGHTS = [
   { value: "9th", label: "National CTF ranking" },
-  { value: "3", label: "Certifications (C)PTE, C)PEH, PT1)" },
+  { value: "3", label: "Certifications: C)PTE, C)PEH, PT1" },
   { value: "SOC + VAPT", label: "Defensive and offensive experience" },
+];
+
+const ABOUT = [
+  "I'm an information security analyst at Onity Group, where I investigate DLP policy violations, support vulnerability management and vendor risk reviews, and analyse quarantined emails.",
+  "Outside work I practise offensive security: web application testing (SQLi, XSS, CSRF, JWT attacks), CTFs, and bug bounty hunting on Bugcrowd. The goal is a VAPT role, and the SOC work gives me the detection and response side of the picture.",
 ];
 
 const EXPERIENCE = [
@@ -40,13 +53,19 @@ const EXPERIENCE = [
     period: "Aug 2024 – Mar 2025",
     points: [], // add 2-3 real responsibilities or outcomes here
   },
+  {
+    role: "B.E. Computer Science, Honours in Cyber Security",
+    org: "Savitribai Phule Pune University",
+    period: "2026",
+    points: [],
+  },
 ];
 
 const PROJECTS = [
   {
     name: "Automated Vulnerability Scanner",
     stack: ["Python", "Selenium", "Burp Suite API"],
-    desc: "Scanner that detects XSS, CSRF and SQLi using headless-browser crawling and payload fuzzing, with structured vulnerability reports.",
+    desc: "Detects XSS, CSRF and SQLi using headless-browser crawling and payload fuzzing, and produces structured vulnerability reports.",
     repo: "", // add GitHub URL
   },
   {
@@ -81,69 +100,75 @@ const CERTS = [
   { name: "Mile2 C)PEH", detail: "Certified Professional Ethical Hacker · valid through Oct 2027" },
   { name: "TryHackMe PT1", detail: "Junior Penetration Tester" },
 ];
-
-const EDUCATION = {
-  degree: "B.E. Computer Science, Honours in Cyber Security",
-  school: "Savitribai Phule Pune University",
-  year: "2026",
-};
 /* ================================================ */
 
 const css = `
-:root{--bg:#080d18;--card:#0f1626;--line:#1e293b;--text:#e2e8f0;--muted:#94a3b8;--accent:#38bdf8;}
+:root{--bg:#080d18;--card:#0f1626;--line:#1e293b;--text:#e2e8f0;--muted:#94a3b8;--accent:#34d399;--mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
-body{background:var(--bg);color:var(--text);font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;line-height:1.6}
+body{background:var(--bg);color:var(--text);font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;line-height:1.65}
 a{color:inherit;text-decoration:none}
-.wrap{max-width:960px;margin:0 auto;padding:0 24px}
-nav{position:sticky;top:0;z-index:10;background:rgba(8,13,24,.9);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.wrap{max-width:1000px;margin:0 auto;padding:0 24px}
+section{scroll-margin-top:64px}
+nav{position:sticky;top:0;z-index:10;background:rgba(8,13,24,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
 nav .wrap{display:flex;justify-content:space-between;align-items:center;height:56px}
-nav .brand{font-weight:700}
-nav ul{display:flex;gap:20px;list-style:none;font-size:14px;color:var(--muted)}
+.brand{font-family:var(--mono);font-weight:700}
+.brand span{color:var(--accent)}
+nav ul{display:flex;gap:22px;list-style:none;font-size:14px;color:var(--muted)}
 nav ul a:hover{color:var(--accent)}
-.hero{padding:88px 0 56px}
-.eyebrow{display:inline-flex;align-items:center;gap:6px;color:var(--accent);font-size:14px;font-weight:600}
-h1{font-size:clamp(34px,6vw,52px);line-height:1.15;margin:12px 0 6px}
+.hero{padding:84px 24px 56px;display:grid;grid-template-columns:1.3fr 1fr;gap:40px;align-items:center}
+.label{font-family:var(--mono);font-size:13px;color:var(--accent);letter-spacing:.5px}
+h1{font-size:clamp(36px,6vw,54px);line-height:1.12;margin:10px 0 6px}
 .role{font-size:20px;color:var(--muted)}
-.tagline{max-width:640px;margin-top:18px;color:var(--muted);font-size:17px}
+.tagline{max-width:560px;margin-top:18px;color:var(--muted);font-size:16.5px}
 .meta{display:flex;align-items:center;gap:6px;margin-top:14px;color:var(--muted);font-size:14px}
-.actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
-.btn{display:inline-flex;align-items:center;gap:8px;padding:10px 18px;border-radius:8px;font-weight:600;font-size:14px;border:1px solid var(--line)}
-.btn.primary{background:var(--accent);color:#04121c;border-color:var(--accent)}
+.actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:26px}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:10px 18px;border-radius:8px;font-weight:600;font-size:14px;border:1px solid var(--line);transition:border-color .15s}
+.btn.primary{background:var(--accent);color:#04180f;border-color:var(--accent)}
 .btn:hover{border-color:var(--accent)}
-.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:48px}
+.term{background:#050912;border:1px solid var(--line);border-radius:12px;overflow:hidden;font-family:var(--mono);font-size:13px}
+.term-bar{display:flex;gap:6px;padding:10px 14px;border-bottom:1px solid var(--line)}
+.term-bar i{width:10px;height:10px;border-radius:50%;background:#1e293b}
+.term-body{padding:16px;display:grid;gap:8px}
+.term-row{display:flex;gap:10px;flex-wrap:wrap}
+.term-row .p{color:var(--accent)}
+.term-row .k{color:var(--muted)}
+.stats{grid-column:1/-1;display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
 .stat{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px}
 .stat b{display:block;font-size:24px;color:var(--accent)}
 .stat span{font-size:13px;color:var(--muted)}
-section{padding:56px 0;border-top:1px solid var(--line)}
-h2{font-size:24px;margin-bottom:24px}
-.item{margin-bottom:28px}
-.item-head{display:flex;justify-content:space-between;flex-wrap:wrap;gap:4px}
-.item h3{font-size:17px}
-.item .org{color:var(--accent);font-size:14px}
-.item .period{color:var(--muted);font-size:13px}
-.item ul{margin:10px 0 0 18px;color:var(--muted);font-size:15px}
-.item li{margin-bottom:4px}
+.block{padding:64px 0;border-top:1px solid var(--line)}
+h2{font-size:26px;margin:6px 0 24px}
+.about p{color:var(--muted);max-width:720px;margin-bottom:14px;font-size:16px}
+.timeline{border-left:2px solid var(--line);padding-left:24px;display:grid;gap:30px}
+.tl{position:relative}
+.tl::before{content:"";position:absolute;left:-31px;top:8px;width:10px;height:10px;border-radius:50%;background:var(--accent)}
+.tl-head{display:flex;justify-content:space-between;flex-wrap:wrap;gap:4px}
+.tl h3{font-size:17px}
+.tl .org{color:var(--accent);font-size:14px}
+.tl .period{font-family:var(--mono);color:var(--muted);font-size:12.5px}
+.tl ul{margin:10px 0 0 18px;color:var(--muted);font-size:15px}
+.tl li{margin-bottom:5px}
 .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
-.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:20px;display:flex;flex-direction:column;gap:10px}
-.card h3{font-size:17px;display:flex;justify-content:space-between;align-items:center}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:22px;display:flex;flex-direction:column;gap:10px;transition:border-color .15s}
+.card:hover{border-color:var(--accent)}
+.card h3{font-size:17px;display:flex;justify-content:space-between;align-items:center;gap:8px}
 .card p{color:var(--muted);font-size:14.5px}
 .tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:auto}
-.tag{font-size:12px;padding:3px 10px;border-radius:999px;border:1px solid var(--line);color:var(--muted)}
-.skill{margin-bottom:18px}
+.tag{font-family:var(--mono);font-size:12px;padding:3px 10px;border-radius:6px;border:1px solid var(--line);color:var(--muted)}
+.skill{margin-bottom:20px}
 .skill h3{font-size:14px;color:var(--muted);margin-bottom:8px;font-weight:600}
-.cert{display:flex;flex-direction:column}
+.cert-row{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:8px}
 .cert b{font-size:16px}
 .cert span{font-size:13px;color:var(--muted)}
-.edu{color:var(--muted);margin-top:24px;font-size:15px}
-.edu b{color:var(--text)}
-.contact p{color:var(--muted);margin-bottom:20px;max-width:560px}
+.contact p{color:var(--muted);margin-bottom:22px;max-width:560px}
 footer{padding:28px 0;border-top:1px solid var(--line);color:var(--muted);font-size:13px;text-align:center}
-@media(max-width:700px){.grid,.stats{grid-template-columns:1fr}nav ul{gap:12px;font-size:13px}.hero{padding-top:56px}}
+@media(max-width:760px){.hero{grid-template-columns:1fr;padding-top:52px}.grid,.stats,.cert-row{grid-template-columns:1fr}nav ul{gap:12px;font-size:13px}}
 `;
 
 function App() {
   const links = [
+    ["About", "#about"],
     ["Experience", "#experience"],
     ["Projects", "#projects"],
     ["Skills", "#skills"],
@@ -154,7 +179,7 @@ function App() {
       <style>{css}</style>
       <nav>
         <div className="wrap">
-          <a href="#top" className="brand">{PROFILE.name}</a>
+          <a href="#top" className="brand">pd<span>_</span></a>
           <ul>
             {links.map(([label, href]) => (
               <li key={href}><a href={href}>{label}</a></li>
@@ -164,20 +189,34 @@ function App() {
       </nav>
 
       <main id="top">
-        <header className="hero wrap">
-          <span className="eyebrow"><ShieldCheck size={16} /> Cybersecurity</span>
-          <h1>{PROFILE.name}</h1>
-          <div className="role">{PROFILE.title}</div>
-          <p className="tagline">{PROFILE.tagline}</p>
-          <div className="meta"><MapPin size={14} /> {PROFILE.location}</div>
-          <div className="actions">
-            <a className="btn primary" href={`mailto:${PROFILE.email}`}><Mail size={16} /> Contact me</a>
-            {PROFILE.resume && (
-              <a className="btn" href={PROFILE.resume} download><Download size={16} /> Resume</a>
-            )}
-            <a className="btn" href={PROFILE.linkedin} target="_blank" rel="noreferrer">LinkedIn</a>
-            <a className="btn" href={PROFILE.github} target="_blank" rel="noreferrer">GitHub</a>
+        <header className="wrap hero">
+          <div>
+            <div className="label">// cybersecurity</div>
+            <h1>{PROFILE.name}</h1>
+            <div className="role">{PROFILE.title}</div>
+            <p className="tagline">{PROFILE.tagline}</p>
+            <div className="meta"><MapPin size={14} /> {PROFILE.location}</div>
+            <div className="actions">
+              <a className="btn primary" href={`mailto:${PROFILE.email}`}><Mail size={16} /> Contact me</a>
+              {PROFILE.resume && (
+                <a className="btn" href={PROFILE.resume} download><Download size={16} /> Resume</a>
+              )}
+              <a className="btn" href={PROFILE.linkedin} target="_blank" rel="noreferrer">LinkedIn</a>
+              <a className="btn" href={PROFILE.github} target="_blank" rel="noreferrer">GitHub</a>
+            </div>
           </div>
+
+          <div className="term" aria-hidden="true">
+            <div className="term-bar"><i /><i /><i /></div>
+            <div className="term-body">
+              {TERMINAL.map(([k, v]) => (
+                <div className="term-row" key={k}>
+                  <span className="p">$</span><span className="k">{k}</span><span>{v}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+
           <div className="stats">
             {HIGHLIGHTS.map((h) => (
               <div className="stat" key={h.label}><b>{h.value}</b><span>{h.label}</span></div>
@@ -185,26 +224,36 @@ function App() {
           </div>
         </header>
 
-        <section id="experience">
-          <div className="wrap">
-            <h2>Experience</h2>
-            {EXPERIENCE.map((e) => (
-              <div className="item" key={e.role + e.org}>
-                <div className="item-head">
-                  <h3>{e.role} <span className="org">· {e.org}</span></h3>
-                  <span className="period">{e.period}</span>
-                </div>
-                {e.points.length > 0 && <ul>{e.points.map((p) => <li key={p}>{p}</li>)}</ul>}
-              </div>
-            ))}
-            <p className="edu">
-              <b>{EDUCATION.degree}</b>, {EDUCATION.school} ({EDUCATION.year})
-            </p>
+        <section id="about" className="block">
+          <div className="wrap about">
+            <div className="label">01 / about</div>
+            <h2>About</h2>
+            {ABOUT.map((t) => <p key={t}>{t}</p>)}
           </div>
         </section>
 
-        <section id="projects">
+        <section id="experience" className="block">
           <div className="wrap">
+            <div className="label">02 / experience</div>
+            <h2>Experience and education</h2>
+            <div className="timeline">
+              {EXPERIENCE.map((e) => (
+                <div className="tl" key={e.role + e.org}>
+                  <div className="tl-head">
+                    <h3>{e.role}</h3>
+                    <span className="period">{e.period}</span>
+                  </div>
+                  <div className="org">{e.org}</div>
+                  {e.points.length > 0 && <ul>{e.points.map((p) => <li key={p}>{p}</li>)}</ul>}
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section id="projects" className="block">
+          <div className="wrap">
+            <div className="label">03 / projects</div>
             <h2>Projects</h2>
             <div className="grid">
               {PROJECTS.map((p) => (
@@ -225,17 +274,17 @@ function App() {
           </div>
         </section>
 
-        <section id="skills">
+        <section id="skills" className="block">
           <div className="wrap">
-            <h2>Skills</h2>
+            <div className="label">04 / skills</div>
+            <h2>Skills and certifications</h2>
             {SKILLS.map((g) => (
               <div className="skill" key={g.group}>
                 <h3>{g.group}</h3>
                 <div className="tags">{g.items.map((i) => <span className="tag" key={i}>{i}</span>)}</div>
               </div>
             ))}
-            <h2 style={{ marginTop: 40 }}>Certifications</h2>
-            <div className="grid">
+            <div className="cert-row">
               {CERTS.map((c) => (
                 <div className="card cert" key={c.name}><b>{c.name}</b><span>{c.detail}</span></div>
               ))}
@@ -243,11 +292,16 @@ function App() {
           </div>
         </section>
 
-        <section id="contact" className="contact">
+        <section id="contact" className="block contact">
           <div className="wrap">
+            <div className="label">05 / contact</div>
             <h2>Get in touch</h2>
             <p>Open to VAPT, application security and security analyst roles, and happy to relocate for the right one.</p>
-            <a className="btn primary" href={`mailto:${PROFILE.email}`}><Mail size={16} /> {PROFILE.email}</a>
+            <div className="actions">
+              <a className="btn primary" href={`mailto:${PROFILE.email}`}><Mail size={16} /> {PROFILE.email}</a>
+              <a className="btn" href={PROFILE.linkedin} target="_blank" rel="noreferrer">LinkedIn</a>
+              <a className="btn" href={PROFILE.github} target="_blank" rel="noreferrer">GitHub</a>
+            </div>
           </div>
         </section>
       </main>
