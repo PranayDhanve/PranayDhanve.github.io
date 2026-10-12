@@ -205,8 +205,8 @@ function App() {
           <p className="contact-copy">Interested in SOC operations, information security, or penetration testing opportunities? Get in touch.</p>
           <div className="contact-actions">
             <a className="button button-primary" href={`mailto:${email}`}><Mail size={17} /> Email me <ArrowUpRight size={16} /></a>
-            <a className="button button-secondary" href={linkedin} target="_blank" rel="noreferrer"><Linkedin size={17} /> LinkedIn <ExternalLink size={14} /></a>
-            <a className="button button-secondary" href={github} target="_blank" rel="noreferrer"><Github size={17} /> GitHub <ExternalLink size={14} /></a>
+            <a className="button button-secondary" href={linkedin} target="_blank" rel="noreferrer"><ContactRound size={17} /> LinkedIn <ExternalLink size={14} /></a>
+            <a className="button button-secondary" href={github} target="_blank" rel="noreferrer"><Code2 size={17} /> GitHub <ExternalLink size={14} /></a>
           </div>
           <p className="setup-warning">Before publishing: replace the placeholder email and profile links, and add your resume as <code>public/resume.pdf</code>.</p>
         </section>
