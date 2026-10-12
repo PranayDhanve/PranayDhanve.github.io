@@ -7,12 +7,12 @@ const PROFILE = {
   name: "Pranay Dhanve",
   title: "Information Security Analyst",
   tagline:
-    "SOC analyst building toward VAPT and offensive security. I work incident and DLP queues by day, and break web apps and write security tooling the rest of the time.",
+    "Information security analyst working across DLP investigations, vulnerability management and vendor risk, building toward VAPT and offensive security through projects, CTFs and bug bounty.",
   location: "Pune, India",
   email: "pranayd.work@gmail.com",
   github: "https://github.com/PranayDhanve",
   linkedin: "https://www.linkedin.com/in/pranaydhanve/",
-  resume: "", // put your PDF in public/resume.pdf, or set to "" to hide the button
+  resume: "/Pranay_Dhanve_Resume_uni.pdf", // file must be in the public/ folder; set to "" to hide the button
 };
 
 const HIGHLIGHTS = [
@@ -24,21 +24,21 @@ const HIGHLIGHTS = [
 const EXPERIENCE = [
   {
     role: "Junior Information Security Analyst",
-    org: "Onity Group Inc.",
-    period: "Current", // add dates, e.g. "Jun 2025 – Present"
+    org: "Onity Group Inc. · Pune, Hybrid",
+    period: "Jun 2025 – Present",
     points: [
-      "Monitor, triage and investigate security alerts across EDR, SIEM and email security platforms.",
-      "Handle data loss prevention (DLP) incidents across Trellix, Cisco and Palo Alto Strata.",
-      "Daily tooling: CrowdStrike Falcon, Splunk, Rapid7 InsightIDR, Wazuh, Prisma Cloud, Cisco IronPort, Trellix ePO.",
+      "Support Risk and Control Self-Assessment (RCSA) follow-ups and review security exceptions covering server privileged access and vulnerability management.",
+      "Investigate Data Loss Prevention (DLP) policy violations and support follow-up on findings.",
+      "Support vendor risk management: onboarding, security posture review and mitigation recommendations.",
+      "Analyse quarantined emails using Cisco IronPort and MXToolbox.",
+      "Run endpoint security compliance reports and support policy management.",
     ],
   },
   {
     role: "Security Intern",
-    org: "HackerCentral",
-    period: "Internship", // add dates
-    points: [
-      "Hands-on practice in web application security testing and core attack techniques (SQLi, XSS, CSRF, JWT attacks).",
-    ],
+    org: "The Hacker Central",
+    period: "Aug 2024 – Mar 2025",
+    points: [], // add 2-3 real responsibilities or outcomes here
   },
 ];
 
@@ -70,15 +70,15 @@ const PROJECTS = [
 ];
 
 const SKILLS = [
-  { group: "Security Operations", items: ["Alert triage", "Incident investigation", "DLP", "Threat hunting"] },
-  { group: "Tools", items: ["CrowdStrike Falcon", "Splunk", "Rapid7 InsightIDR", "Wazuh", "Burp Suite", "Nmap"] },
-  { group: "Offensive Security", items: ["Web app pentesting", "SQLi / XSS / CSRF", "JWT attacks", "Active Directory basics", "Bug bounty (Bugcrowd)"] },
-  { group: "Programming", items: ["Python", "JavaScript", "Bash"] },
+  { group: "Security Operations", items: ["DLP investigation", "Email security", "Security exceptions", "Endpoint compliance", "RCSA follow-ups", "Vendor risk"] },
+  { group: "Security Tools", items: ["CrowdStrike Falcon", "Splunk", "Rapid7 InsightIDR", "Wazuh", "Cisco IronPort", "MXToolbox", "Wireshark"] },
+  { group: "Security Testing", items: ["Burp Suite", "Nmap", "Metasploit", "OWASP Top 10", "Vulnerability assessment", "Bug bounty (Bugcrowd)"] },
+  { group: "Foundations", items: ["Python", "JavaScript", "SQL", "Linux", "Networking", "MITRE ATT&CK"] },
 ];
 
 const CERTS = [
   { name: "Mile2 C)PTE", detail: "Certified Penetration Testing Engineer" },
-  { name: "Mile2 C)PEH", detail: "Certified Professional Ethical Hacker" },
+  { name: "Mile2 C)PEH", detail: "Certified Professional Ethical Hacker · valid through Oct 2027" },
   { name: "TryHackMe PT1", detail: "Junior Penetration Tester" },
 ];
 
@@ -194,7 +194,7 @@ function App() {
                   <h3>{e.role} <span className="org">· {e.org}</span></h3>
                   <span className="period">{e.period}</span>
                 </div>
-                <ul>{e.points.map((p) => <li key={p}>{p}</li>)}</ul>
+                {e.points.length > 0 && <ul>{e.points.map((p) => <li key={p}>{p}</li>)}</ul>}
               </div>
             ))}
             <p className="edu">
