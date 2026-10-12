@@ -1,4 +1,4 @@
-# Pranay Dhanve — Cybersecurity Portfolio
+# Pranay Dhanve - Cybersecurity Portfolio
 
 A responsive, dark professional portfolio built with React + Vite. It is designed to showcase security operations, information security experience, projects, skills, and certification.
 
