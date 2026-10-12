@@ -2,7 +2,7 @@ import React from 'react';
 import { createRoot } from 'react-dom/client';
 import {
   ArrowDownRight, ArrowUpRight, ShieldCheck, Terminal, ScanSearch, Activity,
-  Bug, Network, FileSearch, Github, Linkedin, Mail, Download, LockKeyhole,
+  Bug, Network, FileSearch, Code2, ContactRound, Mail, Download, LockKeyhole,
   ChevronRight, ExternalLink
 } from 'lucide-react';
 import './style.css';
