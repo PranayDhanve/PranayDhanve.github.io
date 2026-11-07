@@ -5,7 +5,7 @@ import { Mail, Download, MapPin, ArrowUpRight } from "lucide-react";
 /* ============ EDIT THIS SECTION ONLY ============ */
 const PROFILE = {
   name: "Pranay Dhanve",
-  title: "Information Security Analyst",
+  title: "Information Security Engineer | Threat Hunter",
   tagline:
     "I work across DLP investigations, vulnerability management, and vendor risk, and I'm building toward VAPT and offensive security through projects, CTFs, and bug bounty.",
   location: "Pune, India",
