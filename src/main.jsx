@@ -40,12 +40,11 @@ const EXPERIENCE = [
     org: "Onity Group Inc. · Pune, Hybrid",
     period: "Jun 2025 – Present",
     points: [
-      "Investigated 50+ monthly security alerts across DLP, endpoint, and email platforms - performing root-cause analysis, mapping attacker techniques to MITRE ATT&CK, and iterating on detection logic to reduce false positives and surface higher-fidelity signals."
-"Monitored and investigated endpoint telemetry across 500+ assets using CrowdStrike Falcon EDR - analyzing behavioural signals, tuning detection policies, and correlating endpoint activity with broader SIEM data to identify attacker presence and lateral movement indicators."
-"Investigated phishing campaigns and email-based intrusion attempts via Cisco IronPort and MXToolbox - identifying sender infrastructure, TTPs, and campaign patterns to inform detection improvements and response guidance."
-"Conducted hypothesis-driven threat hunts across endpoint, network, and email telemetry using Splunk (SPL) and KQL - developing and refining hunting queries to surface indicators of compromise and previously undetected attacker behavior across SIEM and EDR data sources."
+      "Investigated 50+ monthly security alerts across DLP, endpoint, and email platforms - performing root-cause analysis, mapping attacker techniques to MITRE ATT&CK, and iterating on detection logic to reduce false positives and surface higher-fidelity signals.",
+"Monitored and investigated endpoint telemetry across 500+ assets using CrowdStrike Falcon EDR - analyzing behavioural signals, tuning detection policies, and correlating endpoint activity with broader SIEM data to identify attacker presence and lateral movement indicators.",
+"Investigated phishing campaigns and email-based intrusion attempts via Cisco IronPort and MXToolbox - identifying sender infrastructure, TTPs, and campaign patterns to inform detection improvements and response guidance.",
+"Conducted hypothesis-driven threat hunts across endpoint, network, and email telemetry using Splunk (SPL) and KQL - developing and refining hunting queries to surface indicators of compromise and previously undetected attacker behavior across SIEM and EDR data sources.",
 "Built Python automation for IOC validation and enrichment across SIEM platforms - correlating large datasets to accelerate investigation workflows, cutting manual triage time by 90% per batch and enabling faster, more consistent detection outcomes."
-,
     ],
   },
   {
