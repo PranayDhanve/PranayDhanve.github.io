@@ -7,7 +7,7 @@ const PROFILE = {
   name: "Pranay Dhanve",
   title: "Information Security Analyst",
   tagline:
-    "I work across DLP investigations, vulnerability management and vendor risk, and I'm building toward VAPT and offensive security through projects, CTFs and bug bounty.",
+    "I work across DLP investigations, vulnerability management, and vendor risk, and I'm building toward VAPT and offensive security through projects, CTFs, and bug bounty.",
   location: "Pune, India",
   email: "pranayd.work@gmail.com",
   github: "https://github.com/PranayDhanve",
@@ -18,7 +18,7 @@ const PROFILE = {
 // Small terminal card in the hero. Facts only.
 const TERMINAL = [
   ["whoami", "pranay.dhanve"],
-  ["role", "Junior InfoSec Analyst @ Onity Group"],
+  ["role", "Junior InfoSec Engineer @ Onity Group"],
   ["focus", "DLP · vuln mgmt · VAPT"],
   ["status", "open to VAPT / AppSec / SOC roles"],
 ];
