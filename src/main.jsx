@@ -26,12 +26,12 @@ const TERMINAL = [
 const HIGHLIGHTS = [
   { value: "9th", label: "National CTF ranking" },
   { value: "3", label: "Certifications: C)PTE, C)PEH, PT1" },
-  { value: "SOC + VAPT", label: "Defensive and offensive experience" },
+  { value: "SOC/MDR", label: "Defensive and offensive experience" },
 ];
 
 const ABOUT = [
-  "I'm an information security analyst at Onity Group, where I investigate DLP policy violations, support vulnerability management and vendor risk reviews, and analyse quarantined emails.",
-  "Outside work I practise offensive security: web application testing (SQLi, XSS, CSRF, JWT attacks), CTFs, and bug bounty hunting on Bugcrowd. The goal is a VAPT role, and the SOC work gives me the detection and response side of the picture.",
+  "I'm an information security analyst at Onity Group, where I triage MDR/EDR alerts, investigate DLP policy violations, support vulnerability management and vendor risk reviews, and analyse quarantined emails based on policies. I also practice SIEM alert triage in case of notification and request",
+  "Outside work, I practise offensive security: web application testing (SQLi, XSS, CSRF, JWT attacks), CTFs, and bug bounty hunting on Bugcrowd.",
 ];
 
 const EXPERIENCE = [
