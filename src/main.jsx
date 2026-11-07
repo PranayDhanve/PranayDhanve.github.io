@@ -12,7 +12,7 @@ const PROFILE = {
   email: "pranayd.work@gmail.com",
   github: "https://github.com/PranayDhanve",
   linkedin: "https://www.linkedin.com/in/pranaydhanve/",
-  resume: "/Pranay_Dhanve_Resume_uni.pdf", // file must be in public/; set to "" to hide the button
+  resume: "/Pranay_Security.pdf", // file must be in public/; set to "" to hide the button
 };
 
 // Small terminal card in the hero. Facts only.
