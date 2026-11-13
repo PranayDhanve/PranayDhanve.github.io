@@ -74,14 +74,7 @@ const PROJECTS = [
     desc: "A research project exploring video-frame features and temporal differences for detecting manipulated media, with audio-visual analysis as a development direction.",
     repo: "",
   },
-  {
-    number: "04",
-    name: "VAPT Job Alert Bot",
-    category: "Automation",
-    stack: ["Python", "GitHub Actions"],
-    desc: "A scheduled automation project that collects VAPT and application-security job openings from Indian job sources and sends alerts.",
-    repo: "",
-  },
+  
 ];
 
 const SKILLS = [
