@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { createRoot } from "react-dom/client";
 import {
-  ArrowDown, ArrowUpRight, Download, Github, Linkedin, Mail, MapPin,
+  ArrowDown, ArrowUpRight, Download, Mail, MapPin,
   Moon, Sun, ShieldCheck, ExternalLink
 } from "lucide-react";
 
@@ -162,13 +162,13 @@ function App() {
             <div className="location"><MapPin size={14} />{PROFILE.location}</div>
             <div className="hero-actions">
               <a className="action primary" href={`mailto:${PROFILE.email}`}><Mail size={15} /> Email me</a>
-              <a className="action" href={PROFILE.linkedin} target="_blank" rel="noreferrer"><Linkedin size={15} /> LinkedIn <ArrowUpRight size={13} /></a>
-              <a className="action" href={PROFILE.github} target="_blank" rel="noreferrer"><Github size={15} /> GitHub <ArrowUpRight size={13} /></a>
+              <a className="action" href={PROFILE.linkedin} target="_blank" rel="noreferrer"><span className="brand-mark">in</span> LinkedIn <ArrowUpRight size={13} /></a>
+              <a className="action" href={PROFILE.github} target="_blank" rel="noreferrer"><span className="brand-mark">GH</span> GitHub <ArrowUpRight size={13} /></a>
               {PROFILE.resume && <a className="action" href={PROFILE.resume} target="_blank" rel="noreferrer"><Download size={15} /> Resume</a>}
             </div>
             <div className="social">
-              <a href={PROFILE.linkedin} target="_blank" rel="noreferrer"><Linkedin size={15} /> LinkedIn</a>
-              <a href={PROFILE.github} target="_blank" rel="noreferrer"><Github size={15} /> GitHub</a>
+              <a href={PROFILE.linkedin} target="_blank" rel="noreferrer"><span className="brand-mark">in</span> LinkedIn</a>
+              <a href={PROFILE.github} target="_blank" rel="noreferrer"><span className="brand-mark">GH</span> GitHub</a>
               <a href={`mailto:${PROFILE.email}`}><Mail size={15} /> Email</a>
             </div>
           </header>
@@ -228,8 +228,8 @@ function App() {
             <p className="contact-copy">I’m open to opportunities in SOC operations, security analysis, VAPT, and application security. Feel free to reach out to discuss a role or a security project.</p>
             <div className="hero-actions">
               <a className="action primary" href={`mailto:${PROFILE.email}`}><Mail size={15} /> {PROFILE.email}</a>
-              <a className="action" href={PROFILE.linkedin} target="_blank" rel="noreferrer"><Linkedin size={15} /> LinkedIn</a>
-              <a className="action" href={PROFILE.github} target="_blank" rel="noreferrer"><Github size={15} /> GitHub</a>
+              <a className="action" href={PROFILE.linkedin} target="_blank" rel="noreferrer"><span className="brand-mark">in</span> LinkedIn</a>
+              <a className="action" href={PROFILE.github} target="_blank" rel="noreferrer"><span className="brand-mark">GH</span> GitHub</a>
             </div>
           </section>
           <footer className="footer"><span>© {new Date().getFullYear()} {PROFILE.name}</span><span>Built around practical security work.</span></footer>
