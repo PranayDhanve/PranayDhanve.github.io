@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { createRoot } from "react-dom/client";
-import { Mail, Download, MapPin, ArrowUpRight } from "lucide-react";
+import { Mail, Download, MapPin, ArrowUpRight, Sun, Moon } from "lucide-react";
 
 /* ============ EDIT THIS SECTION ONLY ============ */
 const PROFILE = {
@@ -41,9 +41,9 @@ const EXPERIENCE = [
     period: "Jun 2025 – Present",
     points: [
       "Investigated 50+ monthly security alerts across DLP, endpoint, and email platforms - performing root-cause analysis, mapping attacker techniques to MITRE ATT&CK, and iterating on detection logic to reduce false positives and surface higher-fidelity signals.",
-"Monitored and investigated endpoint telemetry across 500+ assets using CrowdStrike Falcon EDR - analyzing behavioural signals, tuning detection policies, and correlating endpoint activity with broader SIEM data to identify attacker presence and lateral movement indicators.",
+"Monitored and investigated endpoint telemetry across 500+ assets using CrowdStrike Falcon EDR - analysing behavioural signals, tuning detection policies, and correlating endpoint activity with broader SIEM data to identify attacker presence and lateral movement indicators.",
 "Investigated phishing campaigns and email-based intrusion attempts via Cisco IronPort and MXToolbox - identifying sender infrastructure, TTPs, and campaign patterns to inform detection improvements and response guidance.",
-"Conducted hypothesis-driven threat hunts across endpoint, network, and email telemetry using Splunk (SPL) and KQL - developing and refining hunting queries to surface indicators of compromise and previously undetected attacker behavior across SIEM and EDR data sources.",
+"Conducted hypothesis-driven threat hunts across endpoint, network, and email telemetry using Splunk (SPL) and KQL - developing and refining hunting queries to surface indicators of compromise and previously undetected attacker behaviour across SIEM and EDR data sources.",
 "Built Python automation for IOC validation and enrichment across SIEM platforms - correlating large datasets to accelerate investigation workflows, cutting manual triage time by 90% per batch and enabling faster, more consistent detection outcomes."
     ],
   },
@@ -103,70 +103,156 @@ const CERTS = [
 /* ================================================ */
 
 const css = `
-:root{--bg:#080d18;--card:#0f1626;--line:#1e293b;--text:#e2e8f0;--muted:#94a3b8;--accent:#34d399;--mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+:root{
+  color-scheme:light;
+  --bg:#f7f9fc;
+  --surface:#ffffff;
+  --card:#ffffff;
+  --line:#e2e8f0;
+  --text:#172033;
+  --muted:#5f6b7c;
+  --accent:#176b87;
+  --accent-strong:#10566e;
+  --accent-soft:#e8f3f7;
+  --shadow:0 8px 24px rgba(15,23,42,.045);
+  --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --bg:#0d1422;
+  --surface:#121d2e;
+  --card:#152236;
+  --line:#29384d;
+  --text:#e7edf5;
+  --muted:#a3b0c2;
+  --accent:#65c6d9;
+  --accent-strong:#8bd9e7;
+  --accent-soft:#1b3442;
+  --shadow:0 8px 24px rgba(0,0,0,.16);
+}
 *{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
-body{background:var(--bg);color:var(--text);font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;line-height:1.65}
+html{scroll-behavior:smooth;scroll-padding-top:76px}
+body{background:var(--bg);color:var(--text);font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;line-height:1.65;transition:background .2s ease,color .2s ease}
 a{color:inherit;text-decoration:none}
-.wrap{max-width:1000px;margin:0 auto;padding:0 24px}
-section{scroll-margin-top:64px}
-nav{position:sticky;top:0;z-index:10;background:rgba(8,13,24,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
-nav .wrap{display:flex;justify-content:space-between;align-items:center;height:56px}
-.brand{font-family:var(--mono);font-weight:700}
+button{font:inherit}
+.wrap{max-width:1040px;margin:0 auto;padding:0 24px}
+section{scroll-margin-top:76px}
+nav{position:sticky;top:0;z-index:10;background:color-mix(in srgb,var(--bg) 90%,transparent);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+nav .wrap{display:flex;justify-content:space-between;align-items:center;min-height:64px;gap:20px}
+.nav-right{display:flex;align-items:center;gap:22px}
+.brand{font-weight:750;letter-spacing:-.04em;font-size:19px}
 .brand span{color:var(--accent)}
 nav ul{display:flex;gap:22px;list-style:none;font-size:14px;color:var(--muted)}
+nav ul a{transition:color .15s ease}
 nav ul a:hover{color:var(--accent)}
-.hero{padding:84px 24px 56px;display:grid;grid-template-columns:1.3fr 1fr;gap:40px;align-items:center}
-.label{font-family:var(--mono);font-size:13px;color:var(--accent);letter-spacing:.5px}
-h1{font-size:clamp(36px,6vw,54px);line-height:1.12;margin:10px 0 6px}
-.role{font-size:20px;color:var(--muted)}
-.tagline{max-width:560px;margin-top:18px;color:var(--muted);font-size:16.5px}
-.meta{display:flex;align-items:center;gap:6px;margin-top:14px;color:var(--muted);font-size:14px}
-.actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:26px}
-.btn{display:inline-flex;align-items:center;gap:8px;padding:10px 18px;border-radius:8px;font-weight:600;font-size:14px;border:1px solid var(--line);transition:border-color .15s}
-.btn.primary{background:var(--accent);color:#04180f;border-color:var(--accent)}
-.btn:hover{border-color:var(--accent)}
-.term{background:#050912;border:1px solid var(--line);border-radius:12px;overflow:hidden;font-family:var(--mono);font-size:13px}
-.term-bar{display:flex;gap:6px;padding:10px 14px;border-bottom:1px solid var(--line)}
-.term-bar i{width:10px;height:10px;border-radius:50%;background:#1e293b}
-.term-body{padding:16px;display:grid;gap:8px}
-.term-row{display:flex;gap:10px;flex-wrap:wrap}
-.term-row .p{color:var(--accent)}
-.term-row .k{color:var(--muted)}
-.stats{grid-column:1/-1;display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-.stat{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px}
-.stat b{display:block;font-size:24px;color:var(--accent)}
+.theme-toggle{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:36px;padding:7px 11px;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--text);font-size:13px;font-weight:600;cursor:pointer;transition:border-color .15s ease,background .15s ease}
+.theme-toggle:hover{border-color:var(--accent)}
+.hero{padding:88px 24px 64px;display:grid;grid-template-columns:1.25fr 1fr;gap:42px;align-items:center}
+.label{font-size:12px;font-weight:700;color:var(--accent);letter-spacing:1.1px;text-transform:uppercase}
+h1{font-size:clamp(36px,6vw,54px);letter-spacing:-.045em;line-height:1.1;margin:12px 0 8px}
+.role{font-size:19px;color:var(--muted);font-weight:500}
+.tagline{max-width:590px;margin-top:18px;color:var(--muted);font-size:16px;line-height:1.75}
+.meta{display:flex;align-items:center;gap:7px;margin-top:14px;color:var(--muted);font-size:14px}
+.actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:26px}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:10px 16px;border-radius:8px;font-weight:650;font-size:14px;border:1px solid var(--line);background:var(--surface);color:var(--text);transition:transform .15s ease,border-color .15s ease,background .15s ease}
+.btn:hover{border-color:var(--accent);transform:translateY(-1px)}
+.btn.primary{background:var(--accent);color:#fff;border-color:var(--accent)}
+.btn.primary:hover{background:var(--accent-strong);border-color:var(--accent-strong)}
+.term{background:var(--surface);border:1px solid var(--line);border-radius:14px;overflow:hidden;font-size:13px;box-shadow:var(--shadow)}
+.term-bar{display:flex;align-items:center;gap:7px;padding:12px 16px;border-bottom:1px solid var(--line);color:var(--muted);font-size:12px;font-weight:650}
+.term-bar i{width:8px;height:8px;border-radius:50%;background:#c2ccd8}
+.term-bar i:first-child{background:#6da995}
+.term-body{padding:20px;display:grid;gap:13px}
+.term-row{display:grid;grid-template-columns:72px 1fr;gap:12px;align-items:start}
+.term-row .p{display:none}
+.term-row .k{color:var(--muted);font-size:12px;text-transform:uppercase;letter-spacing:.6px}
+.term-row span:last-child{color:var(--text);font-weight:550}
+.stats{grid-column:1/-1;display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:2px}
+.stat{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:18px 20px;box-shadow:var(--shadow)}
+.stat b{display:block;font-size:23px;letter-spacing:-.02em;color:var(--accent)}
 .stat span{font-size:13px;color:var(--muted)}
-.block{padding:64px 0;border-top:1px solid var(--line)}
-h2{font-size:26px;margin:6px 0 24px}
-.about p{color:var(--muted);max-width:720px;margin-bottom:14px;font-size:16px}
-.timeline{border-left:2px solid var(--line);padding-left:24px;display:grid;gap:30px}
+.block{padding:68px 0;border-top:1px solid var(--line)}
+h2{font-size:27px;letter-spacing:-.025em;margin:7px 0 24px}
+.about p{color:var(--muted);max-width:760px;margin-bottom:14px;font-size:15.5px;line-height:1.8}
+.timeline{border-left:2px solid var(--line);padding-left:25px;display:grid;gap:32px}
 .tl{position:relative}
-.tl::before{content:"";position:absolute;left:-31px;top:8px;width:10px;height:10px;border-radius:50%;background:var(--accent)}
-.tl-head{display:flex;justify-content:space-between;flex-wrap:wrap;gap:4px}
-.tl h3{font-size:17px}
-.tl .org{color:var(--accent);font-size:14px}
-.tl .period{font-family:var(--mono);color:var(--muted);font-size:12.5px}
-.tl ul{margin:10px 0 0 18px;color:var(--muted);font-size:15px}
-.tl li{margin-bottom:5px}
+.tl::before{content:"";position:absolute;left:-32px;top:8px;width:11px;height:11px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 4px var(--bg)}
+.tl-head{display:flex;justify-content:space-between;flex-wrap:wrap;gap:5px 16px}
+.tl h3{font-size:17px;letter-spacing:-.01em}
+.tl .org{color:var(--accent);font-size:14px;font-weight:600;margin-top:3px}
+.tl .period{color:var(--muted);font-size:12.5px}
+.tl ul{margin:11px 0 0 18px;color:var(--muted);font-size:14.5px;line-height:1.75}
+.tl li{margin-bottom:7px;padding-left:3px}
 .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
-.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:22px;display:flex;flex-direction:column;gap:10px;transition:border-color .15s}
-.card:hover{border-color:var(--accent)}
-.card h3{font-size:17px;display:flex;justify-content:space-between;align-items:center;gap:8px}
-.card p{color:var(--muted);font-size:14.5px}
-.tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:auto}
-.tag{font-family:var(--mono);font-size:12px;padding:3px 10px;border-radius:6px;border:1px solid var(--line);color:var(--muted)}
-.skill{margin-bottom:20px}
-.skill h3{font-size:14px;color:var(--muted);margin-bottom:8px;font-weight:600}
-.cert-row{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:8px}
-.cert b{font-size:16px}
-.cert span{font-size:13px;color:var(--muted)}
-.contact p{color:var(--muted);margin-bottom:22px;max-width:560px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:22px;display:flex;flex-direction:column;gap:11px;box-shadow:var(--shadow);transition:transform .18s ease,border-color .18s ease,box-shadow .18s ease}
+.card:hover{border-color:var(--accent);transform:translateY(-3px);box-shadow:0 12px 28px rgba(15,23,42,.08)}
+.card h3{font-size:16px;display:flex;justify-content:space-between;align-items:center;gap:8px}
+.card p{color:var(--muted);font-size:14px;line-height:1.7}
+.tags{display:flex;flex-wrap:wrap;gap:7px;margin-top:auto;padding-top:5px}
+.tag{font-size:12px;padding:4px 9px;border-radius:6px;border:1px solid var(--line);background:var(--bg);color:var(--muted)}
+.skill{margin-bottom:22px}
+.skill h3{font-size:13px;color:var(--text);margin-bottom:9px;font-weight:700}
+.cert-row{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:12px}
+.cert b{font-size:15px}
+.cert span{font-size:13px;color:var(--muted);line-height:1.6}
+.contact p{color:var(--muted);margin-bottom:22px;max-width:590px}
 footer{padding:28px 0;border-top:1px solid var(--line);color:var(--muted);font-size:13px;text-align:center}
-@media(max-width:760px){.hero{grid-template-columns:1fr;padding-top:52px}.grid,.stats,.cert-row{grid-template-columns:1fr}nav ul{gap:12px;font-size:13px}}
+.reveal{opacity:0;transform:translateY(18px);transition:opacity .65s ease,transform .65s ease}
+.reveal.is-visible{opacity:1;transform:translateY(0)}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{transition-duration:.01ms!important;animation-duration:.01ms!important;animation-iteration-count:1!important}.reveal{opacity:1;transform:none}}
+@media(max-width:760px){
+  .hero{grid-template-columns:1fr;padding-top:56px;gap:28px}
+  .grid,.stats,.cert-row{grid-template-columns:1fr}
+  nav .wrap{align-items:flex-start;padding-top:12px;padding-bottom:12px}
+  .nav-right{gap:12px;align-items:flex-end;flex-direction:column}
+  nav ul{gap:12px;flex-wrap:wrap;justify-content:flex-end;font-size:12px}
+  .theme-toggle{min-height:32px;padding:5px 9px}
+}
+@media(max-width:460px){
+  .wrap{padding-left:18px;padding-right:18px}
+  nav .wrap{gap:10px}
+  .nav-right{gap:9px}
+  nav ul{gap:9px}
+  .hero{padding-left:18px;padding-right:18px}
+  .term-row{grid-template-columns:64px 1fr}
+  .block{padding:54px 0}
+}
 `;
 
 function App() {
+  const [theme, setTheme] = useState(() => {
+    if (typeof window === "undefined") return "light";
+    return window.localStorage.getItem("portfolio-theme") || "light";
+  });
+
+  useEffect(() => {
+    document.documentElement.setAttribute("data-theme", theme);
+    window.localStorage.setItem("portfolio-theme", theme);
+  }, [theme]);
+
+  useEffect(() => {
+    const elements = document.querySelectorAll(".reveal");
+    if (!("IntersectionObserver" in window)) {
+      elements.forEach((element) => element.classList.add("is-visible"));
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries, currentObserver) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible");
+            currentObserver.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.12, rootMargin: "0px 0px -35px 0px" }
+    );
+
+    elements.forEach((element) => observer.observe(element));
+    return () => observer.disconnect();
+  }, []);
+
   const links = [
     ["About", "#about"],
     ["Experience", "#experience"],
@@ -179,12 +265,24 @@ function App() {
       <style>{css}</style>
       <nav>
         <div className="wrap">
-          <a href="#top" className="brand">pd<span>_</span></a>
-          <ul>
-            {links.map(([label, href]) => (
-              <li key={href}><a href={href}>{label}</a></li>
-            ))}
-          </ul>
+          <a href="#top" className="brand">pd<span>.</span></a>
+          <div className="nav-right">
+            <ul>
+              {links.map(([label, href]) => (
+                <li key={href}><a href={href}>{label}</a></li>
+              ))}
+            </ul>
+            <button
+              className="theme-toggle"
+              type="button"
+              onClick={() => setTheme((current) => current === "light" ? "dark" : "light")}
+              aria-label={`Switch to ${theme === "light" ? "dark" : "light"} theme`}
+              title={`Switch to ${theme === "light" ? "dark" : "light"} theme`}
+            >
+              {theme === "light" ? <Moon size={15} /> : <Sun size={15} />}
+              {theme === "light" ? "Dark" : "Light"}
+            </button>
+          </div>
         </div>
       </nav>
 
@@ -206,7 +304,7 @@ function App() {
             </div>
           </div>
 
-          <div className="term" aria-hidden="true">
+          <div className="term reveal" aria-hidden="true">
             <div className="term-bar"><i /><i /><i /></div>
             <div className="term-body">
               {TERMINAL.map(([k, v]) => (
@@ -217,14 +315,14 @@ function App() {
             </div>
           </div>
 
-          <div className="stats">
+          <div className="stats reveal">
             {HIGHLIGHTS.map((h) => (
               <div className="stat" key={h.label}><b>{h.value}</b><span>{h.label}</span></div>
             ))}
           </div>
         </header>
 
-        <section id="about" className="block">
+        <section id="about" className="block reveal">
           <div className="wrap about">
             <div className="label">01 / about</div>
             <h2>About</h2>
@@ -232,7 +330,7 @@ function App() {
           </div>
         </section>
 
-        <section id="experience" className="block">
+        <section id="experience" className="block reveal">
           <div className="wrap">
             <div className="label">02 / experience</div>
             <h2>Experience and education</h2>
@@ -251,7 +349,7 @@ function App() {
           </div>
         </section>
 
-        <section id="projects" className="block">
+        <section id="projects" className="block reveal">
           <div className="wrap">
             <div className="label">03 / projects</div>
             <h2>Projects</h2>
@@ -274,7 +372,7 @@ function App() {
           </div>
         </section>
 
-        <section id="skills" className="block">
+        <section id="skills" className="block reveal">
           <div className="wrap">
             <div className="label">04 / skills</div>
             <h2>Skills and certifications</h2>
@@ -292,7 +390,7 @@ function App() {
           </div>
         </section>
 
-        <section id="contact" className="block contact">
+        <section id="contact" className="block contact reveal">
           <div className="wrap">
             <div className="label">05 / contact</div>
             <h2>Get in touch</h2>
