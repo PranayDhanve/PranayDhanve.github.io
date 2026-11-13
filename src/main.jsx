@@ -1,222 +1,109 @@
 import React, { useEffect, useState } from "react";
 import { createRoot } from "react-dom/client";
-import { Mail, Download, MapPin, ArrowUpRight, Sun, Moon } from "lucide-react";
+import {
+  ArrowDown, ArrowUpRight, Download, Github, Linkedin, Mail, MapPin,
+  Moon, Sun, ShieldCheck, ExternalLink
+} from "lucide-react";
 
-/* ============ EDIT THIS SECTION ONLY ============ */
+/* Update profile links and project repository URLs here. */
 const PROFILE = {
   name: "Pranay Dhanve",
-  title: "Information Security Engineer | Threat Hunter",
-  tagline:
-    "I work across DLP investigations, vulnerability management, and vendor risk, and I'm building toward VAPT and offensive security through projects, CTFs, and bug bounty.",
+  title: "Information Security Analyst",
+  subtitle: "Security Operations · Threat Hunting · VAPT",
+  intro:
+    "I work across security operations, endpoint and email investigations, vulnerability management, and vendor risk. Alongside my day-to-day security work, I build hands-on projects and practise web application security and penetration testing.",
   location: "Pune, India",
   email: "pranayd.work@gmail.com",
   github: "https://github.com/PranayDhanve",
   linkedin: "https://www.linkedin.com/in/pranaydhanve/",
-  resume: "/Pranay_Security.pdf", // file must be in public/; set to "" to hide the button
+  resume: "/Pranay_Security.pdf",
 };
 
-// Small terminal card in the hero. Facts only.
-const TERMINAL = [
-  ["whoami", "pranay.dhanve"],
-  ["role", "Junior InfoSec Engineer @ Onity Group"],
-  ["focus", "DLP · vuln mgmt · VAPT"],
-  ["status", "open to VAPT / AppSec / SOC roles"],
-];
-
 const HIGHLIGHTS = [
+  { value: "500+", label: "Endpoint assets in compliance scope" },
   { value: "9th", label: "National CTF ranking" },
-  { value: "3", label: "Certifications: C)PTE, C)PEH, PT1" },
-  { value: "SOC/MDR", label: "Defensive and offensive experience" },
-];
-
-const ABOUT = [
-  "I'm an information security analyst at Onity Group, where I triage MDR/EDR alerts, investigate DLP policy violations, support vulnerability management and vendor risk reviews, and analyse quarantined emails based on policies. I also practice SIEM alert triage in case of notification and request",
-  "Outside work, I practise offensive security: web application testing (SQLi, XSS, CSRF, JWT attacks), CTFs, and bug bounty hunting on Bugcrowd.",
+  { value: "3", label: "Professional security certifications" },
 ];
 
 const EXPERIENCE = [
   {
     role: "Junior Information Security Analyst",
-    org: "Onity Group Inc. · Pune, Hybrid",
+    org: "Onity Group Inc. · Pune, India · Hybrid",
     period: "Jun 2025 – Present",
     points: [
-      "Investigated 50+ monthly security alerts across DLP, endpoint, and email platforms - performing root-cause analysis, mapping attacker techniques to MITRE ATT&CK, and iterating on detection logic to reduce false positives and surface higher-fidelity signals.",
-"Monitored and investigated endpoint telemetry across 500+ assets using CrowdStrike Falcon EDR - analysing behavioural signals, tuning detection policies, and correlating endpoint activity with broader SIEM data to identify attacker presence and lateral movement indicators.",
-"Investigated phishing campaigns and email-based intrusion attempts via Cisco IronPort and MXToolbox - identifying sender infrastructure, TTPs, and campaign patterns to inform detection improvements and response guidance.",
-"Conducted hypothesis-driven threat hunts across endpoint, network, and email telemetry using Splunk (SPL) and KQL - developing and refining hunting queries to surface indicators of compromise and previously undetected attacker behaviour across SIEM and EDR data sources.",
-"Built Python automation for IOC validation and enrichment across SIEM platforms - correlating large datasets to accelerate investigation workflows, cutting manual triage time by 90% per batch and enabling faster, more consistent detection outcomes."
+      "Investigate security alerts across DLP, endpoint, and email platforms, performing root-cause analysis and using MITRE ATT&CK to describe relevant attacker techniques.",
+      "Monitor endpoint telemetry across 500+ assets using CrowdStrike Falcon and support endpoint compliance and detection-policy reviews.",
+      "Analyse quarantined and suspicious emails using Cisco IronPort and MXToolbox, reviewing sender details, headers, and indicators associated with phishing activity.",
+      "Use Splunk and security telemetry to support alert triage, investigation, and hypothesis-driven threat hunting.",
+      "Support vulnerability-management exception reviews, security-exception assessments, RCSA follow-ups, and third-party vendor risk reviews.",
     ],
   },
   {
     role: "Security Intern",
-    org: "The Hacker Central",
+    org: "The Hacker Central · Remote",
     period: "Aug 2024 – Mar 2025",
-    points: [], // add 2-3 real responsibilities or outcomes here
-  },
-  {
-    role: "B.E. Computer Science, Honours in Cyber Security",
-    org: "Savitribai Phule Pune University",
-    period: "2026",
-    points: [],
+    points: [
+      "Built practical experience through security labs involving web application testing, reconnaissance, Linux, Active Directory, and SOC/SIEM workflows.",
+      "Worked with virtual machines, firewall configurations, and web-server components as part of hands-on security exercises.",
+    ],
   },
 ];
 
 const PROJECTS = [
   {
+    number: "01",
     name: "Automated Vulnerability Scanner",
+    category: "Web application security",
     stack: ["Python", "Selenium", "Burp Suite API"],
-    desc: "Detects XSS, CSRF and SQLi using headless-browser crawling and payload fuzzing, and produces structured vulnerability reports.",
-    repo: "", // add GitHub URL
+    desc: "A web application testing project that uses headless-browser crawling and payload fuzzing to check for common issues such as XSS, CSRF, and SQL injection, then produces structured findings.",
+    repo: "",
   },
   {
+    number: "02",
     name: "Threat Analyser & Detector",
+    category: "Browser security",
     stack: ["JavaScript", "HTML"],
-    desc: "Browser-integrated tool that intercepts and blocks malicious file downloads before they reach system directories, modelled on endpoint DLP logic.",
+    desc: "A browser-integrated tool designed to intercept and block suspicious file downloads before they reach local system directories, drawing on endpoint-protection and DLP concepts.",
     repo: "",
   },
   {
+    number: "03",
     name: "Deepfake Detection",
-    stack: ["ResNeXt-LSTM", "FaceForensics++", "DFDC"],
-    desc: "Hybrid deep learning model with temporal-difference and audio-visual fusion components for detecting manipulated video.",
+    category: "Research project",
+    stack: ["ResNeXt-LSTM", "OpenCV", "FaceForensics++", "DFDC"],
+    desc: "A research project exploring video-frame features and temporal differences for detecting manipulated media, with audio-visual analysis as a development direction.",
     repo: "",
   },
   {
+    number: "04",
     name: "VAPT Job Alert Bot",
+    category: "Automation",
     stack: ["Python", "GitHub Actions"],
-    desc: "Scheduled scraper that collects VAPT and AppSec openings from Indian job sources and delivers alerts.",
+    desc: "A scheduled automation project that collects VAPT and application-security job openings from Indian job sources and sends alerts.",
     repo: "",
   },
 ];
 
 const SKILLS = [
-  { group: "Security Operations", items: ["DLP investigation", "Email security", "Security exceptions", "Endpoint compliance", "RCSA follow-ups", "Vendor risk"] },
-  { group: "Security Tools", items: ["CrowdStrike Falcon", "Splunk", "Rapid7 InsightIDR", "Wazuh", "Cisco IronPort", "MXToolbox", "Wireshark"] },
-  { group: "Security Testing", items: ["Burp Suite", "Nmap", "Metasploit", "OWASP Top 10", "Vulnerability assessment", "Bug bounty (Bugcrowd)"] },
-  { group: "Foundations", items: ["Python", "JavaScript", "SQL", "Linux", "Networking", "MITRE ATT&CK"] },
+  { group: "Security operations", items: ["DLP investigation", "Alert triage", "Email security", "Endpoint compliance", "Security exceptions", "Vendor risk", "RCSA follow-ups"] },
+  { group: "Security platforms and tools", items: ["CrowdStrike Falcon", "Splunk", "Rapid7 InsightIDR", "Wazuh", "Cisco IronPort", "MXToolbox", "Wireshark"] },
+  { group: "Security testing", items: ["Burp Suite", "Nmap", "Metasploit", "OWASP Top 10", "Vulnerability assessment", "Web application testing"] },
+  { group: "Technical foundations", items: ["Python", "JavaScript", "SQL", "Linux", "Networking", "MITRE ATT&CK"] },
 ];
 
-const CERTS = [
+const CERTIFICATIONS = [
   { name: "Mile2 C)PTE", detail: "Certified Penetration Testing Engineer" },
-  { name: "Mile2 C)PEH", detail: "Certified Professional Ethical Hacker · valid through Oct 2027" },
+  { name: "Mile2 C)PEH", detail: "Certified Professional Ethical Hacker · Valid through Oct 2027" },
   { name: "TryHackMe PT1", detail: "Junior Penetration Tester" },
 ];
-/* ================================================ */
 
 const css = `
-:root{
-  color-scheme:light;
-  --bg:#f7f9fc;
-  --surface:#ffffff;
-  --card:#ffffff;
-  --line:#e2e8f0;
-  --text:#172033;
-  --muted:#5f6b7c;
-  --accent:#176b87;
-  --accent-strong:#10566e;
-  --accent-soft:#e8f3f7;
-  --shadow:0 8px 24px rgba(15,23,42,.045);
-  --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
-}
-:root[data-theme="dark"]{
-  color-scheme:dark;
-  --bg:#0d1422;
-  --surface:#121d2e;
-  --card:#152236;
-  --line:#29384d;
-  --text:#e7edf5;
-  --muted:#a3b0c2;
-  --accent:#65c6d9;
-  --accent-strong:#8bd9e7;
-  --accent-soft:#1b3442;
-  --shadow:0 8px 24px rgba(0,0,0,.16);
-}
-*{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth;scroll-padding-top:76px}
-body{background:var(--bg);color:var(--text);font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;line-height:1.65;transition:background .2s ease,color .2s ease}
-a{color:inherit;text-decoration:none}
-button{font:inherit}
-.wrap{max-width:1040px;margin:0 auto;padding:0 24px}
-section{scroll-margin-top:76px}
-nav{position:sticky;top:0;z-index:10;background:color-mix(in srgb,var(--bg) 90%,transparent);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
-nav .wrap{display:flex;justify-content:space-between;align-items:center;min-height:64px;gap:20px}
-.nav-right{display:flex;align-items:center;gap:22px}
-.brand{font-weight:750;letter-spacing:-.04em;font-size:19px}
-.brand span{color:var(--accent)}
-nav ul{display:flex;gap:22px;list-style:none;font-size:14px;color:var(--muted)}
-nav ul a{transition:color .15s ease}
-nav ul a:hover{color:var(--accent)}
-.theme-toggle{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:36px;padding:7px 11px;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--text);font-size:13px;font-weight:600;cursor:pointer;transition:border-color .15s ease,background .15s ease}
-.theme-toggle:hover{border-color:var(--accent)}
-.hero{padding:88px 24px 64px;display:grid;grid-template-columns:1.25fr 1fr;gap:42px;align-items:center}
-.label{font-size:12px;font-weight:700;color:var(--accent);letter-spacing:1.1px;text-transform:uppercase}
-h1{font-size:clamp(36px,6vw,54px);letter-spacing:-.045em;line-height:1.1;margin:12px 0 8px}
-.role{font-size:19px;color:var(--muted);font-weight:500}
-.tagline{max-width:590px;margin-top:18px;color:var(--muted);font-size:16px;line-height:1.75}
-.meta{display:flex;align-items:center;gap:7px;margin-top:14px;color:var(--muted);font-size:14px}
-.actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:26px}
-.btn{display:inline-flex;align-items:center;gap:8px;padding:10px 16px;border-radius:8px;font-weight:650;font-size:14px;border:1px solid var(--line);background:var(--surface);color:var(--text);transition:transform .15s ease,border-color .15s ease,background .15s ease}
-.btn:hover{border-color:var(--accent);transform:translateY(-1px)}
-.btn.primary{background:var(--accent);color:#fff;border-color:var(--accent)}
-.btn.primary:hover{background:var(--accent-strong);border-color:var(--accent-strong)}
-.term{background:var(--surface);border:1px solid var(--line);border-radius:14px;overflow:hidden;font-size:13px;box-shadow:var(--shadow)}
-.term-bar{display:flex;align-items:center;gap:7px;padding:12px 16px;border-bottom:1px solid var(--line);color:var(--muted);font-size:12px;font-weight:650}
-.term-bar i{width:8px;height:8px;border-radius:50%;background:#c2ccd8}
-.term-bar i:first-child{background:#6da995}
-.term-body{padding:20px;display:grid;gap:13px}
-.term-row{display:grid;grid-template-columns:72px 1fr;gap:12px;align-items:start}
-.term-row .p{display:none}
-.term-row .k{color:var(--muted);font-size:12px;text-transform:uppercase;letter-spacing:.6px}
-.term-row span:last-child{color:var(--text);font-weight:550}
-.stats{grid-column:1/-1;display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:2px}
-.stat{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:18px 20px;box-shadow:var(--shadow)}
-.stat b{display:block;font-size:23px;letter-spacing:-.02em;color:var(--accent)}
-.stat span{font-size:13px;color:var(--muted)}
-.block{padding:68px 0;border-top:1px solid var(--line)}
-h2{font-size:27px;letter-spacing:-.025em;margin:7px 0 24px}
-.about p{color:var(--muted);max-width:760px;margin-bottom:14px;font-size:15.5px;line-height:1.8}
-.timeline{border-left:2px solid var(--line);padding-left:25px;display:grid;gap:32px}
-.tl{position:relative}
-.tl::before{content:"";position:absolute;left:-32px;top:8px;width:11px;height:11px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 4px var(--bg)}
-.tl-head{display:flex;justify-content:space-between;flex-wrap:wrap;gap:5px 16px}
-.tl h3{font-size:17px;letter-spacing:-.01em}
-.tl .org{color:var(--accent);font-size:14px;font-weight:600;margin-top:3px}
-.tl .period{color:var(--muted);font-size:12.5px}
-.tl ul{margin:11px 0 0 18px;color:var(--muted);font-size:14.5px;line-height:1.75}
-.tl li{margin-bottom:7px;padding-left:3px}
-.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
-.card{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:22px;display:flex;flex-direction:column;gap:11px;box-shadow:var(--shadow);transition:transform .18s ease,border-color .18s ease,box-shadow .18s ease}
-.card:hover{border-color:var(--accent);transform:translateY(-3px);box-shadow:0 12px 28px rgba(15,23,42,.08)}
-.card h3{font-size:16px;display:flex;justify-content:space-between;align-items:center;gap:8px}
-.card p{color:var(--muted);font-size:14px;line-height:1.7}
-.tags{display:flex;flex-wrap:wrap;gap:7px;margin-top:auto;padding-top:5px}
-.tag{font-size:12px;padding:4px 9px;border-radius:6px;border:1px solid var(--line);background:var(--bg);color:var(--muted)}
-.skill{margin-bottom:22px}
-.skill h3{font-size:13px;color:var(--text);margin-bottom:9px;font-weight:700}
-.cert-row{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:12px}
-.cert b{font-size:15px}
-.cert span{font-size:13px;color:var(--muted);line-height:1.6}
-.contact p{color:var(--muted);margin-bottom:22px;max-width:590px}
-footer{padding:28px 0;border-top:1px solid var(--line);color:var(--muted);font-size:13px;text-align:center}
-.reveal{opacity:0;transform:translateY(18px);transition:opacity .65s ease,transform .65s ease}
-.reveal.is-visible{opacity:1;transform:translateY(0)}
-@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{transition-duration:.01ms!important;animation-duration:.01ms!important;animation-iteration-count:1!important}.reveal{opacity:1;transform:none}}
-@media(max-width:760px){
-  .hero{grid-template-columns:1fr;padding-top:56px;gap:28px}
-  .grid,.stats,.cert-row{grid-template-columns:1fr}
-  nav .wrap{align-items:flex-start;padding-top:12px;padding-bottom:12px}
-  .nav-right{gap:12px;align-items:flex-end;flex-direction:column}
-  nav ul{gap:12px;flex-wrap:wrap;justify-content:flex-end;font-size:12px}
-  .theme-toggle{min-height:32px;padding:5px 9px}
-}
-@media(max-width:460px){
-  .wrap{padding-left:18px;padding-right:18px}
-  nav .wrap{gap:10px}
-  .nav-right{gap:9px}
-  nav ul{gap:9px}
-  .hero{padding-left:18px;padding-right:18px}
-  .term-row{grid-template-columns:64px 1fr}
-  .block{padding:54px 0}
-}
+:root{color-scheme:light;--page:#edf1f4;--paper:#fff;--ink:#182635;--muted:#5e6c78;--line:#d8e0e6;--accent:#245b70;--accent-soft:#eaf1f4;--shadow:8px 8px 0 rgba(24,38,53,.10);--mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+:root[data-theme="dark"]{color-scheme:dark;--page:#101923;--paper:#172431;--ink:#edf3f6;--muted:#a9b8c2;--line:#344653;--accent:#8cc4d2;--accent-soft:#213744;--shadow:8px 8px 0 rgba(0,0,0,.22)}
+*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:84px}body{margin:0;background-color:var(--page);background-image:repeating-linear-gradient(135deg,transparent 0 48px,rgba(36,91,112,.035) 49px 50px,transparent 51px 100px);color:var(--ink);font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;line-height:1.65;transition:background-color .2s,color .2s}a{color:inherit;text-decoration:none}button{font:inherit}.site{width:min(100% - 36px,920px);margin:42px auto 56px}.sheet{background:var(--paper);border:1px solid var(--ink);box-shadow:var(--shadow)}.topbar{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:18px 28px;border-bottom:1px solid var(--line)}.monogram{font-weight:800;letter-spacing:-.06em;font-size:19px}.monogram span{color:var(--accent)}.nav{display:flex;align-items:center;gap:20px;color:var(--muted);font-size:13px}.nav a:hover,.text-link:hover{color:var(--accent);text-decoration:underline;text-underline-offset:4px}.theme{border:1px solid var(--line);background:var(--paper);color:var(--ink);display:inline-flex;align-items:center;gap:7px;padding:7px 10px;font-size:12px;cursor:pointer}.hero{padding:58px 58px 48px}.eyebrow{font:700 11px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--accent)}h1{font-size:clamp(38px,6vw,62px);letter-spacing:-.055em;line-height:1.04;margin:15px 0 9px}.subtitle{font-size:17px;color:var(--accent);font-weight:650}.intro{max-width:690px;color:var(--muted);font-size:16px;line-height:1.85;margin:22px 0 15px}.location{display:flex;align-items:center;gap:7px;color:var(--muted);font-size:13px}.hero-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:27px}.action{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:1px solid var(--ink);padding:10px 15px;font-size:13px;font-weight:650;transition:transform .15s,background .15s,color .15s}.action:hover{transform:translate(-2px,-2px);box-shadow:3px 3px 0 var(--ink)}.action.primary{background:var(--accent);border-color:var(--accent);color:#fff}.action.primary:hover{background:var(--ink);border-color:var(--ink)}.social{display:flex;gap:17px;margin-top:25px;color:var(--muted)}.social a{display:inline-flex;align-items:center;gap:6px;font-size:12px}.social a:hover{color:var(--accent)}.highlights{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}.highlight{padding:20px 25px}.highlight+.highlight{border-left:1px solid var(--line)}.highlight strong{display:block;font-size:23px;letter-spacing:-.03em;color:var(--accent)}.highlight span{display:block;font-size:12px;color:var(--muted);line-height:1.5;margin-top:3px}.section{padding:42px 58px;border-bottom:1px solid var(--line)}.section:last-child{border-bottom:0}.section-head{display:flex;align-items:baseline;gap:13px;margin-bottom:23px}.section-no{font:700 11px var(--mono);color:var(--accent)}h2{font-size:25px;letter-spacing:-.035em;line-height:1.2;margin:0}.about-copy{max-width:720px;color:var(--muted);font-size:14.5px;line-height:1.85}.about-copy p{margin:0 0 13px}.timeline{display:grid;gap:28px}.job{position:relative;padding-left:19px;border-left:2px solid var(--line)}.job:before{content:"";position:absolute;left:-6px;top:7px;width:10px;height:10px;border-radius:50%;background:var(--accent)}.job-top{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}.job h3,.project h3{font-size:16px;line-height:1.4;margin:0;font-weight:750}.period{white-space:nowrap;color:var(--muted);font-size:11px}.org{color:var(--accent);font-size:13px;font-weight:650;margin:3px 0 10px}.job ul{padding-left:17px;margin:0;color:var(--muted);font-size:13.5px;line-height:1.8}.job li{padding-left:3px;margin:0 0 6px}.projects{display:grid;grid-template-columns:1fr 1fr;gap:13px}.project{border:1px solid var(--line);padding:18px;display:flex;flex-direction:column;min-height:205px;transition:border-color .15s,transform .15s}.project:hover{border-color:var(--accent);transform:translateY(-2px)}.project-top{display:flex;justify-content:space-between;gap:10px;color:var(--accent);font:700 11px var(--mono);margin-bottom:13px}.project h3{margin-bottom:3px}.category{font-size:11px;color:var(--muted);margin-bottom:10px}.project p{font-size:13px;color:var(--muted);line-height:1.75;margin:0 0 14px}.tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:auto}.tag{font-size:10px;padding:3px 7px;background:var(--accent-soft);color:var(--accent);border:1px solid var(--line)}.skill-list{display:grid;grid-template-columns:1fr 1fr;gap:20px 28px}.skill-group h3{font-size:12px;text-transform:uppercase;letter-spacing:.07em;margin:0 0 9px}.certs{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:25px}.cert{border:1px solid var(--line);padding:14px}.cert strong{display:block;font-size:13px}.cert span{display:block;color:var(--muted);font-size:11px;line-height:1.6;margin-top:5px}.contact-copy{color:var(--muted);font-size:14px;max-width:620px;margin:0 0 20px}.footer{padding:18px 28px;border-top:1px solid var(--line);display:flex;justify-content:space-between;gap:12px;color:var(--muted);font-size:11px}.reveal{opacity:0;transform:translateY(12px);transition:opacity .5s ease,transform .5s ease}.reveal.visible{opacity:1;transform:none}
+@media(max-width:700px){.site{width:min(100% - 22px,920px);margin:14px auto 30px}.topbar{padding:14px 18px;align-items:flex-start}.nav{gap:11px;flex-wrap:wrap;justify-content:flex-end;font-size:11px}.nav a:nth-child(2),.nav a:nth-child(4){display:none}.hero{padding:42px 24px 34px}.section{padding:32px 24px}.highlight{padding:15px 13px}.highlight span{font-size:10px}.projects{grid-template-columns:1fr}.project{min-height:0}.certs{grid-template-columns:1fr}.job-top{display:block}.period{display:block;margin-top:4px}.skill-list{grid-template-columns:1fr 1fr;gap:18px 14px}}
+@media(max-width:430px){.topbar{gap:8px}.nav{gap:8px}.nav a{display:none!important}.theme{padding:6px 8px}.hero{padding:36px 20px 30px}.section{padding:29px 20px}.highlights{grid-template-columns:1fr}.highlight{display:flex;align-items:center;gap:14px;padding:12px 20px}.highlight+.highlight{border-left:0;border-top:1px solid var(--line)}.highlight strong{min-width:62px}.highlight span{margin:0}.skill-list{grid-template-columns:1fr}.footer{padding:16px 20px;flex-direction:column}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{transition-duration:.01ms!important;animation-duration:.01ms!important}.reveal{opacity:1;transform:none}}
 `;
 
 function App() {
@@ -231,180 +118,123 @@ function App() {
   }, [theme]);
 
   useEffect(() => {
-    const elements = document.querySelectorAll(".reveal");
+    const nodes = document.querySelectorAll(".reveal");
     if (!("IntersectionObserver" in window)) {
-      elements.forEach((element) => element.classList.add("is-visible"));
+      nodes.forEach((node) => node.classList.add("visible"));
       return;
     }
-
-    const observer = new IntersectionObserver(
-      (entries, currentObserver) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("is-visible");
-            currentObserver.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.12, rootMargin: "0px 0px -35px 0px" }
-    );
-
-    elements.forEach((element) => observer.observe(element));
+    const observer = new IntersectionObserver((entries, current) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+          current.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    nodes.forEach((node) => observer.observe(node));
     return () => observer.disconnect();
   }, []);
 
-  const links = [
-    ["About", "#about"],
-    ["Experience", "#experience"],
-    ["Projects", "#projects"],
-    ["Skills", "#skills"],
-    ["Contact", "#contact"],
-  ];
   return (
     <>
       <style>{css}</style>
-      <nav>
-        <div className="wrap">
-          <a href="#top" className="brand">pd<span>.</span></a>
-          <div className="nav-right">
-            <ul>
-              {links.map(([label, href]) => (
-                <li key={href}><a href={href}>{label}</a></li>
-              ))}
-            </ul>
-            <button
-              className="theme-toggle"
-              type="button"
-              onClick={() => setTheme((current) => current === "light" ? "dark" : "light")}
-              aria-label={`Switch to ${theme === "light" ? "dark" : "light"} theme`}
-              title={`Switch to ${theme === "light" ? "dark" : "light"} theme`}
-            >
-              {theme === "light" ? <Moon size={15} /> : <Sun size={15} />}
-              {theme === "light" ? "Dark" : "Light"}
-            </button>
-          </div>
-        </div>
-      </nav>
+      <div className="site">
+        <main className="sheet">
+          <nav className="topbar" aria-label="Main navigation">
+            <a className="monogram" href="#home">pd<span>.</span></a>
+            <div className="nav">
+              <a href="#experience">Experience</a>
+              <a href="#projects">Projects</a>
+              <a href="#skills">Skills</a>
+              <a href="#contact">Contact</a>
+              <button className="theme" type="button" onClick={() => setTheme((t) => t === "light" ? "dark" : "light")} aria-label={`Switch to ${theme === "light" ? "dark" : "light"} theme`}>
+                {theme === "light" ? <Moon size={14} /> : <Sun size={14} />}{theme === "light" ? "Dark" : "Light"}
+              </button>
+            </div>
+          </nav>
 
-      <main id="top">
-        <header className="wrap hero">
-          <div>
-            <div className="label">// cybersecurity</div>
+          <header className="hero" id="home">
+            <div className="eyebrow">Cybersecurity portfolio</div>
             <h1>{PROFILE.name}</h1>
-            <div className="role">{PROFILE.title}</div>
-            <p className="tagline">{PROFILE.tagline}</p>
-            <div className="meta"><MapPin size={14} /> {PROFILE.location}</div>
-            <div className="actions">
-              <a className="btn primary" href={`mailto:${PROFILE.email}`}><Mail size={16} /> Contact me</a>
-              {PROFILE.resume && (
-                <a className="btn" href={PROFILE.resume} download><Download size={16} /> Resume</a>
-              )}
-              <a className="btn" href={PROFILE.linkedin} target="_blank" rel="noreferrer">LinkedIn</a>
-              <a className="btn" href={PROFILE.github} target="_blank" rel="noreferrer">GitHub</a>
+            <div className="subtitle">{PROFILE.title}</div>
+            <div className="subtitle" style={{fontSize: "13px", fontWeight: 500}}>{PROFILE.subtitle}</div>
+            <p className="intro">{PROFILE.intro}</p>
+            <div className="location"><MapPin size={14} />{PROFILE.location}</div>
+            <div className="hero-actions">
+              <a className="action primary" href={`mailto:${PROFILE.email}`}><Mail size={15} /> Email me</a>
+              <a className="action" href={PROFILE.linkedin} target="_blank" rel="noreferrer"><Linkedin size={15} /> LinkedIn <ArrowUpRight size={13} /></a>
+              <a className="action" href={PROFILE.github} target="_blank" rel="noreferrer"><Github size={15} /> GitHub <ArrowUpRight size={13} /></a>
+              {PROFILE.resume && <a className="action" href={PROFILE.resume} target="_blank" rel="noreferrer"><Download size={15} /> Resume</a>}
             </div>
-          </div>
-
-          <div className="term reveal" aria-hidden="true">
-            <div className="term-bar"><i /><i /><i /></div>
-            <div className="term-body">
-              {TERMINAL.map(([k, v]) => (
-                <div className="term-row" key={k}>
-                  <span className="p">$</span><span className="k">{k}</span><span>{v}</span>
-                </div>
-              ))}
+            <div className="social">
+              <a href={PROFILE.linkedin} target="_blank" rel="noreferrer"><Linkedin size={15} /> LinkedIn</a>
+              <a href={PROFILE.github} target="_blank" rel="noreferrer"><Github size={15} /> GitHub</a>
+              <a href={`mailto:${PROFILE.email}`}><Mail size={15} /> Email</a>
             </div>
+          </header>
+
+          <div className="highlights reveal">
+            {HIGHLIGHTS.map((item) => <div className="highlight" key={item.label}><strong>{item.value}</strong><span>{item.label}</span></div>)}
           </div>
 
-          <div className="stats reveal">
-            {HIGHLIGHTS.map((h) => (
-              <div className="stat" key={h.label}><b>{h.value}</b><span>{h.label}</span></div>
-            ))}
-          </div>
-        </header>
+          <section className="section reveal" id="about">
+            <div className="section-head"><span className="section-no">01 /</span><h2>Profile</h2></div>
+            <div className="about-copy">
+              <p>My current work focuses on security operations and risk-related activities, including DLP investigations, endpoint monitoring, email analysis, vulnerability-management exceptions, and vendor security reviews.</p>
+              <p>Outside my role, I practise web application security and penetration testing through hands-on labs, CTF challenges, and personal projects. I am interested in roles across SOC operations, security analysis, VAPT, and application security.</p>
+            </div>
+          </section>
 
-        <section id="about" className="block reveal">
-          <div className="wrap about">
-            <div className="label">01 / about</div>
-            <h2>About</h2>
-            {ABOUT.map((t) => <p key={t}>{t}</p>)}
-          </div>
-        </section>
-
-        <section id="experience" className="block reveal">
-          <div className="wrap">
-            <div className="label">02 / experience</div>
-            <h2>Experience and education</h2>
+          <section className="section reveal" id="experience">
+            <div className="section-head"><span className="section-no">02 /</span><h2>Experience</h2></div>
             <div className="timeline">
-              {EXPERIENCE.map((e) => (
-                <div className="tl" key={e.role + e.org}>
-                  <div className="tl-head">
-                    <h3>{e.role}</h3>
-                    <span className="period">{e.period}</span>
-                  </div>
-                  <div className="org">{e.org}</div>
-                  {e.points.length > 0 && <ul>{e.points.map((p) => <li key={p}>{p}</li>)}</ul>}
-                </div>
-              ))}
+              {EXPERIENCE.map((job) => <article className="job" key={job.role + job.org}>
+                <div className="job-top"><h3>{job.role}</h3><span className="period">{job.period}</span></div>
+                <div className="org">{job.org}</div>
+                <ul>{job.points.map((point) => <li key={point}>{point}</li>)}</ul>
+              </article>)}
+              <article className="job">
+                <div className="job-top"><h3>B.E. Computer Science · Honours in Cyber Security</h3><span className="period">2026</span></div>
+                <div className="org">Savitribai Phule Pune University</div>
+              </article>
             </div>
-          </div>
-        </section>
+          </section>
 
-        <section id="projects" className="block reveal">
-          <div className="wrap">
-            <div className="label">03 / projects</div>
-            <h2>Projects</h2>
-            <div className="grid">
-              {PROJECTS.map((p) => (
-                <article className="card" key={p.name}>
-                  <h3>
-                    {p.name}
-                    {p.repo && (
-                      <a href={p.repo} target="_blank" rel="noreferrer" aria-label={`${p.name} repository`}>
-                        <ArrowUpRight size={18} />
-                      </a>
-                    )}
-                  </h3>
-                  <p>{p.desc}</p>
-                  <div className="tags">{p.stack.map((s) => <span className="tag" key={s}>{s}</span>)}</div>
-                </article>
-              ))}
+          <section className="section reveal" id="projects">
+            <div className="section-head"><span className="section-no">03 /</span><h2>Selected projects</h2></div>
+            <div className="projects">
+              {PROJECTS.map((project) => <article className="project" key={project.name}>
+                <div className="project-top"><span>{project.number}</span><span>{project.category}</span></div>
+                <h3>{project.name}</h3>
+                <p>{project.desc}</p>
+                <div className="tags">{project.stack.map((tag) => <span className="tag" key={tag}>{tag}</span>)}</div>
+                {project.repo && <a className="text-link" style={{fontSize: "12px", marginTop: "12px"}} href={project.repo} target="_blank" rel="noreferrer">View repository <ExternalLink size={12} /></a>}
+              </article>)}
             </div>
-          </div>
-        </section>
+          </section>
 
-        <section id="skills" className="block reveal">
-          <div className="wrap">
-            <div className="label">04 / skills</div>
-            <h2>Skills and certifications</h2>
-            {SKILLS.map((g) => (
-              <div className="skill" key={g.group}>
-                <h3>{g.group}</h3>
-                <div className="tags">{g.items.map((i) => <span className="tag" key={i}>{i}</span>)}</div>
-              </div>
-            ))}
-            <div className="cert-row">
-              {CERTS.map((c) => (
-                <div className="card cert" key={c.name}><b>{c.name}</b><span>{c.detail}</span></div>
-              ))}
+          <section className="section reveal" id="skills">
+            <div className="section-head"><span className="section-no">04 /</span><h2>Skills & certifications</h2></div>
+            <div className="skill-list">
+              {SKILLS.map((group) => <div className="skill-group" key={group.group}><h3>{group.group}</h3><div className="tags">{group.items.map((item) => <span className="tag" key={item}>{item}</span>)}</div></div>)}
             </div>
-          </div>
-        </section>
-
-        <section id="contact" className="block contact reveal">
-          <div className="wrap">
-            <div className="label">05 / contact</div>
-            <h2>Get in touch</h2>
-            <p>Open to VAPT, application security and security analyst roles, and happy to relocate for the right one.</p>
-            <div className="actions">
-              <a className="btn primary" href={`mailto:${PROFILE.email}`}><Mail size={16} /> {PROFILE.email}</a>
-              <a className="btn" href={PROFILE.linkedin} target="_blank" rel="noreferrer">LinkedIn</a>
-              <a className="btn" href={PROFILE.github} target="_blank" rel="noreferrer">GitHub</a>
+            <div className="certs">
+              {CERTIFICATIONS.map((cert) => <div className="cert" key={cert.name}><strong><ShieldCheck size={14} style={{verticalAlign: "-2px", marginRight: "5px", color: "var(--accent)"}} />{cert.name}</strong><span>{cert.detail}</span></div>)}
             </div>
-          </div>
-        </section>
-      </main>
+          </section>
 
-      <footer>© {new Date().getFullYear()} {PROFILE.name}</footer>
+          <section className="section reveal" id="contact">
+            <div className="section-head"><span className="section-no">05 /</span><h2>Get in touch</h2></div>
+            <p className="contact-copy">I’m open to opportunities in SOC operations, security analysis, VAPT, and application security. Feel free to reach out to discuss a role or a security project.</p>
+            <div className="hero-actions">
+              <a className="action primary" href={`mailto:${PROFILE.email}`}><Mail size={15} /> {PROFILE.email}</a>
+              <a className="action" href={PROFILE.linkedin} target="_blank" rel="noreferrer"><Linkedin size={15} /> LinkedIn</a>
+              <a className="action" href={PROFILE.github} target="_blank" rel="noreferrer"><Github size={15} /> GitHub</a>
+            </div>
+          </section>
+          <footer className="footer"><span>© {new Date().getFullYear()} {PROFILE.name}</span><span>Built around practical security work.</span></footer>
+        </main>
+      </div>
     </>
   );
 }
